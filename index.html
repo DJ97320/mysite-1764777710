@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleTracker Plus</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-indigo-800 mb-2">SimpleTracker Plus</h1>
+            <p class="text-gray-600">Votre compagnon de suivi intelligent</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="bg-white rounded-2xl shadow-xl p-6 mb-8">
+            <!-- Stats Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Counter Card -->
+                <div class="bg-gradient-to-r from-green-50 to-emerald-100 rounded-xl p-6 text-center border border-green-200">
+                    <div class="text-green-600 mb-2">
+                        <i data-feather="trending-up" class="w-8 h-8 mx-auto"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Total</h3>
+                    <div id="counter" class="text-4xl font-bold text-green-700">0</div>
+                </div>
+
+                <!-- Date & Time Card -->
+                <div class="bg-gradient-to-r from-blue-50 to-cyan-100 rounded-xl p-6 text-center border border-blue-200">
+                    <div class="text-blue-600 mb-2">
+                        <i data-feather="clock" class="w-8 h-8 mx-auto"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-2">Date & Heure</h3>
+                    <div id="datetime" class="text-lg font-medium text-blue-700"></div>
+                </div>
+
+                <!-- Description Input Card -->
+                <div class="bg-gradient-to-r from-purple-50 to-violet-100 rounded-xl p-6 border border-purple-200">
+                    <div class="text-purple-600 mb-2">
+                        <i data-feather="edit" class="w-8 h-8 mx-auto"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4 text-center">Description</h3>
+                    <textarea 
+                        id="description" 
+                        placeholder="Entrez votre description ici..." 
+                        class="w-full p-3 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                        rows="3"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <button 
+                    id="addBtn" 
+                    class="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    disabled
+                >
+                    <i data-feather="plus-circle" class="w-5 h-5"></i>
+                    Ajouter
+                </button>
+                
+                <button 
+                    id="resetBtn" 
+                    class="flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg"
+                >
+                    <i data-feather="refresh-cw" class="w-5 h-5"></i>
+                    Réinitialiser
+                </button>
+            </div>
+
+            <!-- Activity Log -->
+            <div class="bg-gradient-to-br from-gray-50 to-slate-100 rounded-xl p-6 border border-gray-200">
+                <div class="flex items-center gap-2 mb-4">
+                    <i data-feather="list" class="w-6 h-6 text-gray-600"></i>
+                    <h3 class="text-xl font-semibold text-gray-800">Journal d'Activité</h3>
+                </div>
+                
+                <div id="logContainer" class="space-y-3 max-h-96 overflow-y-auto">
+                    <!-- Log entries will appear here -->
+                    <div class="text-center py-8 text-gray-500" id="emptyLogMessage">
+                        <i data-feather="file-text" class="w-12 h-12 mx-auto mb-2 opacity-50"></i>
+                        <p>Aucune activité enregistrée</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 text-sm">
+            <p>SimpleTracker Plus - Suivez vos activités en toute simplicité</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+        // Initialize datetime display
+        function updateDateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('fr-FR', options);
+        }
+        
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+</html>
